@@ -1,0 +1,22 @@
+CREATE PROCEDURE CheckCarAvailability
+    @CarId INT,
+    @StartDate DATETIME,
+    @EndDate DATETIME
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    IF EXISTS (
+        SELECT 1 
+        FROM Reservations 
+        WHERE CarId = @CarId
+          AND (StartDate <= @EndDate AND EndDate >= @StartDate) 
+    )
+    BEGIN
+        SELECT 0 AS IsAvailable; 
+    END
+    ELSE
+    BEGIN
+        SELECT 1 AS IsAvailable; 
+    END
+END;
