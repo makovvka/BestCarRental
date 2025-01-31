@@ -1,0 +1,25 @@
+﻿
+
+<h1>Your Reservations</h1>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Reservation ID</th>
+            <th>Car</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var reservation in Model)
+        {
+            <tr>
+                <td>@reservation.Id</td>
+                <td>@reservation.carModel</td>
+                <td>@reservation.StartDate.ToString("yyyy-MM-dd")</td>
+                <td>@reservation.EndDate.ToString("yyyy-MM-dd")</td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,79 @@
+﻿@model List<Car>
+@{
+}
+
+<h2 class="text-center mb-5">Overview of Cars</h2>
+
+
+<div class="row">
+	<div class="col-md-6">
+		<form class="d-flex" asp-action="Index" asp-controller="Cars">
+			<input name="searchString" class="form-control me-1" type="search" placeholder="Search by Brand" aria-label="Search">
+			<button class="btn btn-dark" type="submit">Search by name</button>
+		</form>
+	</div>
+	<div class="col-md-6">
+		<a asp-action="Index" class="text-dark">Back to Full List</a>
+	</div>
+</div>
+
+@{
+	if(User.IsInRole("ADMIN"))
+	{
+		<div class="row mb-5">
+			<div class="col">
+				<a class="btn btn-primary" asp-controller="Cars" asp-action="Create">New Car</a>
+			</div>
+			<div class="col">
+			</div>
+		</div>
+	}
+}
+
+<table class="table">
+	<thead>
+		<tr>
+			<th>ID</th>
+			<th>Brand</th>
+			<th>CarModel</th>
+			<th>Category</th>
+			<th>Price</th>
+			<th>Description</th>
+			<th>Image</th>
+			<th>Added at</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var car in Model)
+		{
+			<tr>
+				<td>@car.Id</td>
+				<td>@car.Brand</td>
+				<td>@car.CarModel</td>
+				<td>@car.Category</td>
+				<td>@(car.Price)$</td>
+				<td>@car.Description</td>
+				<td><img src = "/cars/@car.ImageFileName" width="100" / ></td>
+				<td>@car.AddedAt.ToString("MM/dd/yyyy")</td>
+				@{
+					if (User.IsInRole("ADMIN"))
+					{
+						<td style="white-space:nowrap">
+							<a class="btn btn-primary btn-sm" asp-controller="Cars" asp-action="Edit" asp-route-id="@car.Id">Edit</a>
+							<a class="btn btn-primary btn-sm" asp-controller="Cars" asp-action="Delete" asp-route-id="@car.Id">Delete</a>
+						</td>
+					}
+				}
+				<td>
+					@{
+						if(User.IsInRole("USER"))
+						{
+							@Html.ActionLink("Reservate", "AddReservation", "Reservation", new { Id = car.Id })
+						}
+					}
+					</td>
+			</tr>
+		}
+	</tbody>
+</table>

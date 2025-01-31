@@ -1,0 +1,12 @@
+﻿@{
+	ViewData["Brand"] = "User Page";
+}
+<div style="display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #f0f8ff;">
+    <div style="text-align: center; padding: 20px; border: 1px solid #ccc; border-radius: 10px; background-color: #ffffff; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">
+        <h1 style="color: #333; font-family: Arial, sans-serif;">Welcome</h1>
+        <h4 style="color: #555;">Hello, @ViewBag.Name!</h4>
+        @Html.ActionLink("Add Car", "Create", "Cars") |
+        @Html.ActionLink("Edit Car", "Edit", "Cars")  |
+        @Html.ActionLink("Delete Car", "Delete", "Cars") |
+    </div>
+</div>
